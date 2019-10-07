@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:padding="20dp"
+tools:context=".LoginActivity">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Sign Up"
+    android:textSize="32dp"
+    android:layout_margin="10dp"
+    android:textAlignment="center" />
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:padding="20dp"
+    android:hint="Email"
+    android:id="@+id/txt_sign_up_email"
+    />
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:padding="20dp"
+    android:hint="Senha"
+    android:id="@+id/txt_sign_up_pwd"
+    android:inputType="textPassword"
+    />
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Cadastrar"
+    android:background="@color/colorPrimaryDark"
+    android:textColor="#FFF"
+    android:id="@+id/btn_sign_up"
+    />
+
+</LinearLayout>
+
