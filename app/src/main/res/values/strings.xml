@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">RevisaoUnidade2</string>
+    <string name="confirm_post_delete">Deletar</string>
+    <string name="cancel_post_delete">Cancelar</string>
+    <string name="delete_post_dialog_title">Tem certeza que quer deletar o post?</string>
 </resources>

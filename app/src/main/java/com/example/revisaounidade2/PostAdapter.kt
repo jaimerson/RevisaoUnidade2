@@ -22,7 +22,7 @@ class PostAdapter(val postList: ArrayList<Post>, val longClickListener: (Int) ->
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = postList[position]
 
-        holder.bind(position, this, longClickListener)
+        holder.bind(position, longClickListener)
         holder.idTextView.text = post.id.toString()
         holder.titleTextView.text = post.title
         holder.contentTextView.text = post.content
@@ -33,11 +33,10 @@ class PostAdapter(val postList: ArrayList<Post>, val longClickListener: (Int) ->
         val titleTextView: TextView = itemView.findViewById<TextView>(R.id.txt_post_title)
         val contentTextView: TextView = itemView.findViewById<TextView>(R.id.txt_post_content)
 
-        fun bind(position: Int, adapter: PostAdapter, longClickListener: (Int) -> Unit) = with(itemView){
+        fun bind(position: Int, longClickListener: (Int) -> Unit) = with(itemView){
             val postView = itemView.findViewById<CardView>(R.id.card_view)
             postView.setOnLongClickListener {
                 longClickListener(position)
-                adapter.notifyDataSetChanged()
 
                 true
             }

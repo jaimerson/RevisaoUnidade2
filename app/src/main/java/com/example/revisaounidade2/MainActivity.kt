@@ -29,9 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         PostRepository.initialize(applicationContext)
         val adapter = PostAdapter(PostRepository.postsList) { position ->
-            val post = PostRepository.postsList[position]
-            PostRepository.removePost(post)
-            notifyPostRemoved(post)
+            val dialog = RemovePostDialogFragment {
+                val post = PostRepository.postsList[position]
+                PostRepository.removePost(post)
+                notifyPostRemoved(post)
+            }
+            dialog.show(supportFragmentManager, "RemovePostDialog")
         }
 
         postListView.adapter = adapter
