@@ -20,7 +20,7 @@ class SignUpActivity : AppCompatActivity() {
                 createUser(email, password)
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
-                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         }
     }

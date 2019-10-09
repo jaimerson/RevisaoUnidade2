@@ -23,6 +23,7 @@ class UserRepository {
             with(sharedPreferences.edit()){
                 putString("email", user.email)
                 putString("password", user.password)
+                commit()
             }
         }
     }
