@@ -1,19 +1,26 @@
 package com.example.revisaounidade2
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revisaounidade4.PostAdapter
 
 class MainActivity : AppCompatActivity() {
+    val broadcastReceiver = PostBroadcastReceiver()
+    val filter = IntentFilter(PostBroadcastReceiver.FILTER_NAME).apply{
+        addAction(PostBroadcastReceiver.ACTION_NAME)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        applicationContext.registerReceiver(broadcastReceiver, filter)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -21,12 +28,21 @@ class MainActivity : AppCompatActivity() {
         postListView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         PostRepository.initialize(applicationContext)
-
         val adapter = PostAdapter(PostRepository.postsList) { position ->
             val post = PostRepository.postsList[position]
             PostRepository.removePost(post)
+            notifyPostRemoved(post)
         }
+
         postListView.adapter = adapter
+    }
+
+    private fun notifyPostRemoved(post: Post) {
+        Intent().also {intent ->
+            intent.setAction(PostBroadcastReceiver.ACTION_NAME)
+            intent.putExtra("postTitle", post.title)
+            sendBroadcast(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,6 +62,10 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_add_post -> {
                 val intent = Intent(this, CreatePostActivity::class.java)
                 startActivity(intent)
+                true
+            }
+            R.id.btn_add_some_item -> {
+                PostRepository.addPost(Post(-1, "lorem ipsum", "dolor sit amet"))
                 true
             }
             else -> super.onOptionsItemSelected(item)
